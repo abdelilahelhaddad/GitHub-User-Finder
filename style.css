@@ -1,3 +1,15 @@
 .container {
   height: 100vh;
 }
+
+#profile-avatar img {
+  /* height: 40%; */
+}
+
+.fullname {
+  font-size: 1.5rem;
+}
+
+#mid-infos>div> :last-child {
+  font-size: 1.7rem;
+}
