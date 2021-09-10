@@ -1,18 +1,14 @@
 const searchBTN = document.querySelector('#searchBTN');
 const user = document.querySelector('#user');
 const getProfileInfos = document.querySelector('#getProfileInfos');
-client_id = 'd9308aacf8b204d361fd';
-client_secret = '84969aeef73956f4ec9e8716d1840532802bb81b';
-repos_count = 5;
-repos_sort = 'created: asc';
+client_id = 'YOUR_CLIENT_ID';
+client_secret = 'YOUR_CLIENT_SECRET';
 
 const userValue = user.value;
 
 async function getUser(userValue) {
   const profileResponse = await fetch(`https://api.github.com/users/${userValue}?client_id=${this.client_id}&client_secret=${this.client_secret}`);
-
   const profile = await profileResponse.json();
-
   return profile;
 }
 
@@ -20,7 +16,9 @@ searchBTN.addEventListener('click', (e) => {
   e.preventDefault();
   if (userValue !== '') {
     getUser(userValue).then(
-
+      data => {
+        console.log(data);
+      }
     )
   } else {
     console.log('error');
