@@ -4,8 +4,6 @@ const getProfileInfos = document.querySelector('#getProfileInfos');
 client_id = 'YOUR_CLIENT_ID';
 client_secret = 'YOUR_CLIENT_SECRET';
 
-const userValue = user.value;
-
 async function getUser(userValue) {
   const profileResponse = await fetch(`https://api.github.com/users/${userValue}?client_id=${this.client_id}&client_secret=${this.client_secret}`);
   const profile = await profileResponse.json();
@@ -14,10 +12,11 @@ async function getUser(userValue) {
 
 searchBTN.addEventListener('click', (e) => {
   e.preventDefault();
+  const userValue = user.value;
   if (userValue !== '') {
     getUser(userValue).then(
       data => {
-        console.log(data);
+        displayInfos(data);
       }
     )
   } else {
