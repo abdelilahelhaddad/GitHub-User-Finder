@@ -24,59 +24,56 @@ searchBTN.addEventListener('click', (e) => {
   }
 });
 
-function displayInfos() {
+function displayInfos(data) {
   getProfileInfos.innerHTML = `
   <div class="flex-row p-4 border card bg-light d-flex w-100">
   <div id="profile-avatar">
-    <img class="rounded-circle img-fluid" src="./avatar.jpg" alt="User picture">
+    <img class="rounded-circle img-fluid" src="${data.avatar_url}" alt="User picture">
   </div>
   <div id="profile-infos" class="ml-5">
     <div class="top-infos d-flex justify-content-between align-items-center">
-      <p class="fullname font-weight-bold">Abdelilah Elhaddad</p>
-      <p class="join-date">Member Since: <span id="date">01 Jav 2019</span></p>
+      <p class="fullname font-weight-bold">${data.name}</p>
+      <p class="join-date">Member Since: <span id="date">${(data.created_at).slice(0, -10)}</span></p>
     </div>
-    <a href="https://github.com/abdelilahelhaddad" class="username">@<span>abdelilahelhaddad</span></a>
-    <p class="my-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem hic quo ea perspiciatis
-      officiis vero
-      eaque ipsum, eum corrupti explicabo et aperiam odit rem voluptas facere nostrum autem aut? Impedit aperiam,
-      atque odio saepe quibusdam cum!</p>
+    <a href="${data.html_url}" class="username">@<span>${data.login}</span></a>
+    <p class="my-3">${data.bio}</p>
     <div id="mid-infos" class="mt-4 text-white d-flex justify-content-between">
       <div class="p-4 text-center rounded repos bg-dark">
         <p>Public Repos</p>
-        <p>40</p>
+        <p>${data.public_repos}</p>
       </div>
       <div class="p-4 text-center rounded ghists bg-dark">
         <p>Public Gists</p>
-        <p>7</p>
+        <p>${data.public_gists}</p>
       </div>
       <div class="p-4 text-center rounded followers bg-dark">
         <p>Followers</p>
-        <p>5</p>
+        <p>${data.followers}</p>
       </div>
       <div class="p-4 text-center rounded following bg-dark">
         <p>Following</p>
-        <p>15</p>
+        <p>${data.following}</p>
       </div>
     </div>
     <div id="bottom-infos" class="mt-4">
       <div class="row">
         <div id="location" class="mb-3 col">
           <i class="fas fa-map-marker-alt"></i>
-          <span> Morocco</span>
+          <span> ${data.location}</span>
         </div>
         <div id="twitter" class="col">
           <i class="fab fa-twitter"></i>
-          <a href="https://twitter.com/AbdilahElhaddad"> @<span>AbdilahElhaddad</span></a>
+          <a href="https://twitter.com/${data.twitter_username}"> @<span>${data.twitter_username}</span></a>
         </div>
       </div>
       <div class="row">
         <div id="website" class="mb-3 col">
           <i class="fas fa-link"></i>
-          <a href="https://github.com"><span> https://github.com</span></a>
+          <a href="${data.blog}"><span> ${data.blog}</span></a>
         </div>
         <div id="organization" class="col">
           <i class="far fa-building"></i>
-          <span> Abdelilah Elhaddad</span>
+          <span> ${data.company}</span>
         </div>
       </div>
     </div>
