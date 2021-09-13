@@ -3,11 +3,21 @@ const user = document.querySelector('#user');
 const getProfileInfos = document.querySelector('#getProfileInfos');
 client_id = 'YOUR_CLIENT_ID';
 client_secret = 'YOUR_CLIENT_SECRET';
+repos_count = 5;
+repos_sort = 'created: asc';
 
 async function getUser(userValue) {
-  const profileResponse = await fetch(`https://api.github.com/users/${userValue}?client_id=${this.client_id}&client_secret=${this.client_secret}`);
+  const profileResponse = await fetch(`https://api.github.com/users/${userValue}?client_id=${client_id}&client_secret=${client_secret}`);
+
+  const repoResponse = await fetch(`https://api.github.com/users/${userValue}/repos?per_page=${repos_count}&sort=${repos_sort}&client_id=${client_id}&client_secret=${client_secret}`);
+
   const profile = await profileResponse.json();
-  return profile;
+  const repos = await repoResponse.json();
+
+  return {
+    profile,
+    repos
+  };
 }
 
 searchBTN.addEventListener('click', (e) => {
@@ -16,13 +26,42 @@ searchBTN.addEventListener('click', (e) => {
   if (userValue !== '') {
     getUser(userValue).then(
       data => {
-        displayInfos(data);
+        console.log(data);
+        displayInfos(data.profile);
+        repos(data.repos);
       }
     )
   } else {
     console.log('error');
   }
 });
+
+function ifNull(toCheck) {
+  let msg;
+  if (toCheck == '') {
+    msg = "Not Available";
+  }
+  toCheck = msg;
+  return toCheck;
+}
+
+function repos(repos) {
+  let output = '';
+
+  repos.forEach(repo => {
+    output += `
+    <div class="card card-body mb-2">
+    <div class="row">
+      <div class="col-md-12">
+        <a href="${repo.html_url}" target="_blank">${repo.name}</a>
+      </div>
+    </div>
+  </div>
+    `
+  });
+
+  document.querySelector('#theRepos').innerHTML = output;
+}
 
 function displayInfos(data) {
   getProfileInfos.innerHTML = `
@@ -69,13 +108,15 @@ function displayInfos(data) {
       <div class="row">
         <div id="website" class="mb-3 col">
           <i class="fas fa-link"></i>
-          <a href="${data.blog}"><span> ${data.blog}</span></a>
+          <a href="${ifNull(data.blog)}"><span> ${ifNull(data.blog)}</span></a>
         </div>
         <div id="organization" class="col">
           <i class="far fa-building"></i>
           <span> ${data.company}</span>
         </div>
       </div>
+    </div>
+    <div id="theRepos">
     </div>
   </div>
 </div>

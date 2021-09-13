@@ -1,9 +1,5 @@
-.container {
-  height: 100vh;
-}
-
 #profile-avatar img {
-  width: 10rem;
+  width: 12rem;
 }
 
 .fullname {
