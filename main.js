@@ -1,6 +1,7 @@
 const searchBTN = document.querySelector('#searchBTN');
 const user = document.querySelector('#user');
 const getProfileInfos = document.querySelector('#getProfileInfos');
+
 client_id = 'YOUR_CLIENT_ID';
 client_secret = 'YOUR_CLIENT_SECRET';
 repos_count = 5;
@@ -51,12 +52,12 @@ function repos(repos) {
   repos.forEach(repo => {
     output += `
     <div class="card card-body mb-2">
-    <div class="row">
-      <div class="col-md-12">
-        <a href="${repo.html_url}" target="_blank">${repo.name}</a>
+      <div class="">
+        <div class="col-md-12">
+          <a href="${repo.html_url}" target="_blank">${repo.name}</a>
+        </div>
       </div>
     </div>
-  </div>
     `
   });
 
@@ -65,7 +66,8 @@ function repos(repos) {
 
 function displayInfos(data) {
   getProfileInfos.innerHTML = `
-  <div class="flex-row p-4 border card bg-light d-flex w-100">
+  <div class="p-4 border card bg-light w-100">
+  <div class="row d-flex flex-row ">
   <div id="profile-avatar">
     <img class="rounded-circle img-fluid" src="${data.avatar_url}" alt="User picture">
   </div>
@@ -116,7 +118,11 @@ function displayInfos(data) {
         </div>
       </div>
     </div>
-    <div id="theRepos">
+  </div>
+  </div>
+  <div class="row">
+    <div id="theRepos" class="container">
+
     </div>
   </div>
 </div>
